@@ -6,7 +6,7 @@ class Server {
     constructor() {
 
         this.app = express(); //directamente instanciamos la variable this.app
-        this.port = process.env.PORT; //pasamos el valor nuestra variable port
+        this.port = process.env.PORT || 3000; //pasamos el valor nuestra variable port
         this.usuariosRoutePath = '/api/usuarios'; //definimos una constante de nuestras rutas
 
         //Middelwares
