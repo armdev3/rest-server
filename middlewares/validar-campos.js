@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator');
 
 
 //psamos los mismos request y response
-const validarcCampos = (req, res, next)=>{//next indica sobre los middleware, si ya evaluo el primero pasa al siguiente controlador
+const validarCampos = (req, res, next)=>{//next indica sobre los middleware, si ya evaluo el primero pasa al siguiente controlador
 
       //validamos los datos
         const errors = validationResult(req);
@@ -17,5 +17,5 @@ const validarcCampos = (req, res, next)=>{//next indica sobre los middleware, si
 }
 
 module.exports = {
-    validarcCampos
+    validarCampos
 }

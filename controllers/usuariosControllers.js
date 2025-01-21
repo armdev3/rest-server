@@ -6,7 +6,7 @@ const {
 } = require('express'); //extra de express
 
 //utilizamos bcrypt para cifrar contraseñas
-const bcrypt = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 
 //importamos nuestro modelo
 const Usuario = require('../models/usuario');
@@ -74,9 +74,9 @@ const usuariosPost = async (req, res = response) => {
     //las comprobaciones de los datos se hacen directamente en la ruta pasados como parametros desde el middleware
 
 
-    //Encriptar la constraseña
-    const salt = bcrypt.genSaltSync(); //salt numero de vueltas de cifrado por defecto son 10 vueltas de cifrado
-    usuario.password = bcrypt.hashSync(password, salt); //hasheamos el password y el numero de vueltas de encriptacio
+    //Encriptar la constraseñas
+    const salt = bcryptjs.genSaltSync(); //salt numero de vueltas de cifrado por defecto son 10 vueltas de cifrado
+    usuario.password = bcryptjs.hashSync(password, salt); //hasheamos el password y el numero de vueltas de encriptacio
 
     //Guardar en bases de datos
     await usuario.save();
@@ -100,11 +100,11 @@ const usuariosPut = async (req, res = response) => {
     const { _id, password, google, correo, ...resto } = req.body;
 
     
-    //Todo: validar en bases de datos
+    //Todo: validar password en bases de datos y actualizamos si hace falta
     if (password) {
         //Encriptar la constraseña
-        const salt = bcrypt.genSaltSync(); //salt numero de vueltas de cifrado por defecto son 10 vueltas de cifrado
-        resto.password = bcrypt.hashSync(password, salt); //hasheamos el password y el numero de vueltas enci
+        const salt = bcryptjs.genSaltSync(); //salt numero de vueltas de cifrado por defecto son 10 vueltas de cifrado
+        resto.password = bcryptjs.hashSync(password, salt); //hasheamos el password y el numero de vueltas enci
 
     }
 
@@ -133,12 +133,11 @@ const usuariosDelete = async (req, res = response) => {
     //const usuario = await Usuario.findByIdAndDelete(id);
 
     //la mejor forma es no eliminar sino cambiar el estado del usuario
-
     const usuario = await Usuario.findByIdAndUpdate(id,{estado:false});
 
-    res.json(
-       usuario
-    )
+    res.json({ 
+        usuario
+    })
 }
 
 

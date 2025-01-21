@@ -1,9 +1,22 @@
 //desectructuamos de expres la funcion Router para definir la rutas
 const { Router } = require('express')
 
+
 const { check, query } = require('express-validator');
-const { validarcCampos } = require('../middllewares/validar-campos');
+
+//middlewares
+// const { validarCampos } = require('../middllewares/validar-campos');
+// const { validarJWT } = require('../middllewares/validar-jwt');
+// const { esAdminRole, tieneRol } = require('../middllewares/validar-roles');
+
+//hacemos la importacion de nuestros middlewrea unificados que se encuentra en index
+const {
+    validarCampos, validarJWT, esAdminRole, tieneRol
+} = require('../middlewares/index');
+
+
 const { essRolvalido, emailExiste, existeUsuarioId } = require('../helpers/db-validators');
+
 
 
 //importamos las funciones de nuestros controladores
@@ -14,6 +27,10 @@ const {
     usuariosDelete,
     usuariosPatch
 } = require('../controllers/usuariosControllers');
+
+
+
+
 
 
 const router = Router();
@@ -29,7 +46,7 @@ router.get('/', [
     .optional()//indicamos que es opcional
     .isNumeric().withMessage('La desde debe ser numerico')
     .toInt(),
-    validarcCampos
+    validarCampos
    
     
 ],usuariosGet);
@@ -42,7 +59,7 @@ router.put('/:id',
         check('id').isMongoId().withMessage('El id no es valido')
         .custom((id)=>existeUsuarioId(id)),
         check('rol').custom((rol) => essRolvalido(rol)),
-        validarcCampos
+        validarCampos
     ],
     usuariosPut
 ); //definismo una varible en nuestra url para obtener  el valor del parametro
@@ -67,7 +84,7 @@ router.post('/',
         .custom((correo)=>emailExiste(correo)),
         //    check('rol','No es un rol valido').isIn(['ADMIN_ROLE','USER_ROLE']),
         check('rol').custom((rol) => essRolvalido(rol)), //pasamos rol
-        validarcCampos
+        validarCampos
 
     ], 
     usuariosPost
@@ -76,10 +93,15 @@ router.post('/',
 
 router.delete('/:id',
         [
+     
+        validarJWT,
+       // esAdminRole,
+        tieneRol('ADMIN_ROLE','VENTAS_ROLE','OTRO_ROL'),
+    
         //comprobamos que el id sea valido o exista 
         check('id').isMongoId().withMessage('El id no es valido')
         .custom((id)=>existeUsuarioId(id)),
-        validarcCampos
+        validarCampos
 
 
         ], 

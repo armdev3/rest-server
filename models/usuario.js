@@ -2,7 +2,7 @@ const { Schema,model} = require('mongoose');//destructuramos de mongoose el  sch
 
 //creamo nuestro Modelo o tabla
 const UsuarioSchema = Schema({
-
+  
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio']
@@ -46,7 +46,10 @@ const UsuarioSchema = Schema({
 
 //con esto podemos validar o cambiar los datos de nuestro schema
 UsuarioSchema.methods.toJSON = function(){
-    const {__v, password, ...usuario} = this.toObject();//extraemos password y __v del esquema y el resto de campos lo almacenamos en usuario y lo devolvemos al esquema
+    const {__v, password, _id, ...usuario} = this.toObject();//extraemos password y __v del esquema y el resto de campos lo almacenamos en usuario y lo 
+    usuario.uid = _id; //añadimos  y asignamos el nuevo uid y su valor
+    
+    //devolvemos al esquema
     return usuario;
 }
 
