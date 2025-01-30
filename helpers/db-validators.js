@@ -1,7 +1,9 @@
 
 //importamos el modelo de rol y de usuario para poder realizar las validaciones
 const Role = require('../models/role');
-const Usuario = require('../models/usuario');
+const Usuario = require('../models/usuario')
+
+
 const essRolvalido = async (rol = '') => { //revisamos el rol con check y se lo pasasmo a custom que es una validacion personalizada, por default lo ponemos en vacio
 
     //buscamos en la bases de datos si existe el rol

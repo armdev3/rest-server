@@ -23,7 +23,7 @@ const UsuarioSchema = Schema({
         ]
 
     },
-    imagen: {
+    img: {
         type: String
 
     },
