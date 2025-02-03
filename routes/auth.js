@@ -18,7 +18,7 @@ router.post('/login',
     ],
     login);
 
-    router.post('/google',
+router.post('/google',
         [
            check('id_token','Token de google es necesario').not().isEmpty(),
            validarCampos

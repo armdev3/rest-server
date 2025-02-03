@@ -1,14 +1,9 @@
-const {
-    response,
-    request
-} = require('express'); //extra de express
+const {response,request} = require('express'); //extra de express
 const bcryptjs = require('bcryptjs');
 
 //importamos el modelo de usuario
 const Usuario = require('../models/usuario');
-const {
-    generarJWT
-} = require('../helpers/generarJWT');
+const {generarJWT} = require('../helpers/generarJWT');
 const { googleVerify } = require('../helpers/google-verify');
 
 
@@ -88,9 +83,7 @@ const login = async (req, res = response) => {
 const googleSinIn = async (req, res = response) => {
 
     //recibimos el token del frotend
-    const {
-        id_token
-    } = await req.body;
+    const { id_token } = await req.body;
 
     try {
 
