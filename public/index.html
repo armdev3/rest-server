@@ -28,10 +28,8 @@
             //Google Token: ID_TOKEN
             //console.log(response.credential);
 
-            //obtenemos el token de google
-            const body = {
-                id_token: response.credential
-            }
+            //obtenemos el token de google de la response.credential
+            const body = {id_token: response.credential}
 
             let url = ( window.location.hostname.includes('localhost') )
                     ? 'http://localhost:8080/api/auth/google'

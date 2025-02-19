@@ -79,7 +79,7 @@ const login = async (req, res = response) => {
 
 }
 
-
+//validacion del token de google  y comprobar en nuestro backend
 const googleSinIn = async (req, res = response) => {
 
     //recibimos el token del frotend
@@ -87,7 +87,7 @@ const googleSinIn = async (req, res = response) => {
 
     try {
 
-        //obtenemos los datos
+        //obtenemos los datos comprobando el token recibido con google
          const {nombre, img, correo} = await googleVerify(id_token);
 
          //hacemos la busqueda el usuario en bases de datos por el correo
@@ -140,9 +140,10 @@ const googleSinIn = async (req, res = response) => {
 
     }
 
-
-
 }
+
+
+
 
 module.exports = {
     login,

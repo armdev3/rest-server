@@ -43,7 +43,7 @@ const validarJWT = async (req= request,res=response, next)=>{
        })
    }
 
-  //creamos una nueva propiedad en el request dende le asignamos el valor del usuario
+  //creamos una nueva propiedad en el request dende le asignamos el valor del usuario a la request para ser utilzado en otras validaciones
    req.usuario = usuario;
 
 

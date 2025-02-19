@@ -19,6 +19,7 @@ const esAdminRole = (req, res = response, next) => {
         nombre
     } = req.usuario;
 
+    //Comprobar que es Admin
     if (rol != 'ADMIN_ROLE') {
         return res.status(401).json({
             msg: `${nombre} no es administrador-No tiene privilegios`

@@ -9,7 +9,7 @@ const {
 const bcryptjs = require('bcryptjs');
 
 //importamos nuestro modelo
-const Usuario = require('../models/usuario');
+const {Usuario} = require('../models');
 
 /********GET**************** */
 const usuariosGet = async (req = request, res = response) => {
@@ -64,12 +64,16 @@ const usuariosPost = async (req, res = response) => {
         rol
     } = req.body; // Desestructuramos lo que recibimos del req.body
 
+ 
+
     const usuario = new Usuario({
         nombre,
         correo,
         password,
         rol
     }); //creamos una instancia de usuario pasando los datos del request
+  
+
 
     //las comprobaciones de los datos se hacen directamente en la ruta pasados como parametros desde el middleware
 
@@ -81,9 +85,9 @@ const usuariosPost = async (req, res = response) => {
     //Guardar en bases de datos
     await usuario.save();
 
-    //si todo esta correcto devolvemos los datos
+    // si todo esta correcto devolvemos los datos
     res.status(201).json({
-        msg: 'post  API - controlador',
+        // msg: 'post  API - controlador',
         // nombre, edad  //mostramos las variables recibidas
         usuario
     })
@@ -112,7 +116,7 @@ const usuariosPut = async (req, res = response) => {
 
 
     //busca y actualiza y asigna los datos en usuario
-    const usuario = await Usuario.findByIdAndUpdate( id,resto );
+    const usuario = await Usuario.findByIdAndUpdate( id, resto );
 
     //devolvemos los datos
     res.json(usuario);
